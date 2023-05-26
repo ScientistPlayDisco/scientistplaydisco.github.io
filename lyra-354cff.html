@@ -1,1 +1,223 @@
-The template name has zero length, please check the "template" field in your Notion table.
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- Chrome, Firefox OS and Opera Status Bar Color -->
+<meta name="theme-color" content="#FFFFFF">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+<link rel="stylesheet" type="text/css" href="css/theme.css">
+<link rel="stylesheet" type="text/css" href="css/notablog.css">
+<!-- Favicon -->
+
+  <link rel="shortcut icon" href="https://swg.notion.pet/s/a5ae8a71646c4cac0006fc5b24ccb817">
+
+<style>
+  :root {
+    font-size: 20px;
+  }
+</style>
+  <title>Lyra初学者游戏包解析&nbsp;|&nbsp;ScientistPlayDisco</title>
+  <meta property="og:type" content="blog">
+  <meta property="og:title" content="Lyra初学者游戏包解析">
+  
+  
+  <style>
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+  <a href="index.html">
+    <div class="Navbar__Btn">
+      
+        <span><img class="inline-img-icon" src="https://swg.notion.pet/s/a5ae8a71646c4cac0006fc5b24ccb817"></span>&nbsp;
+      
+      <span>Home</span>
+    </div>
+  </a>
+  
+    
+  
+    
+  
+    
+  
+    
+      <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          
+            <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;😀&lt;/text&gt;&lt;/svg&gt;"></span>&nbsp;
+          
+          <span>About</span>
+        </div>
+      </a>
+    
+  
+    
+  
+    
+  
+</nav>
+  <header class="Header">
+    
+    <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    
+    <h1 class="Header__Title">Lyra初学者游戏包解析</h1>
+    
+      <div class="DateTagBar">
+        
+          <span class="DateTagBar__Item DateTagBar__Date">Posted on Thu, May 25, 2023</span>
+        
+        
+      </div>
+    
+  </header>
+  <article id="https://www.notion.so/354cffe239234cfa84221ba8247566e5" class="PageRoot"><div id="https://www.notion.so/8e1cbac60af548e78fe2c2ab038bc456" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/470c507ad17e4005a3ea572ea0d66396" class="Bookmark"><a href="https://zhuanlan.zhihu.com/p/518029029"><h5 class="Bookmark__Title">UE5 Lyra示例项目解读（一）</h5><p class="Bookmark__Desc">游戏概览Lyra是UE5新推出的示例工程，是第三人称视角射击游戏，用了很多UE5新特性，并且很多做法可以当成Best Practice学习。Lyra虽然游戏内容不多，但细节处理，新技术框架，资源管理方面做的还是很不错的。 官方…</p><p class="Bookmark__Link">https://zhuanlan.zhihu.com/p/518029029</p></a></div><h1 id="https://www.notion.so/22251f60c5db4465b76b73036a498c4e" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/22251f60c5db4465b76b73036a498c4e"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">资源管理</span></span></h1><div id="https://www.notion.so/869fef9ac8fb49c881f23d6cabf953f1" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">Lyra充分使用数据驱动方式，有大量的GA，GE等资源，角色也有很多动作，因此管理和加载这些资源就比较重要。比如服务器给玩家加上一个GA后，怎么保证客户端已经加载好了这个GA？全部预加载当然是一种做法，但这无疑会加载很多当前游戏不需要的资源，造成浪费。</span></span></p></div><h2 id="https://www.notion.so/78f3671ed9f44775b9757d50d8e3dcae" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/78f3671ed9f44775b9757d50d8e3dcae"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Experience</span></span></h2><div id="https://www.notion.so/7cf87c26fe9041a7a04bdc933eea222d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">Experience继承了UPrimaryDataAsset，本质是一个资源。</span></span></p></div><div id="https://www.notion.so/be8b238734ca47589bc78e0ac7ac4be5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">C++类型是ULyraExperienceDefinition，主要有如下几个属性，这些属性指向了其他资源，包括GameFeature，GA，GE，UI等，是当前游戏会使用到的。因此GameMode负责定义游戏的规则，Experience负责定义游戏的数据。</span></span></p></div><div id="https://www.notion.so/255a051ddc874ebc8fb343f3d84401b0" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/71d94a01fba74e4ca3ec8da38e4608aa" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><h2 id="https://www.notion.so/e4af266bafeb4f18a1e65d1590d5dc9f" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/e4af266bafeb4f18a1e65d1590d5dc9f"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">CommonUser</span></span></h2><div id="https://www.notion.so/dfaefe833e0a45ac934fd9ed4fb03a5d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">online初始化</span></span></p></div><pre id="https://www.notion.so/37fc837cd37c43bdbef56d145570658f" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression">COMMONUSER_OSSV1</span></span>
+<span class="token keyword">void</span> <span class="token class-name">UCommonSessionSubsystem</span><span class="token double-colon punctuation">::</span><span class="token function">CreateOnlineSessionInternalOSSv1</span><span class="token punctuation">(</span>ULocalPlayer<span class="token operator">*</span> LocalPlayer<span class="token punctuation">,</span> UCommonSession_HostSessionRequest<span class="token operator">*</span> Request<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">const</span> FName <span class="token function">SessionName</span><span class="token punctuation">(</span>NAME_GameSession<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">const</span> int32 MaxPlayers <span class="token operator">=</span> Request<span class="token operator">-></span><span class="token function">GetMaxPlayers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">const</span> <span class="token keyword">bool</span> bIsPresence <span class="token operator">=</span> Request<span class="token operator">-></span>bUseLobbies<span class="token punctuation">;</span> <span class="token comment">// Using lobbies implies presence</span>
+
+	IOnlineSubsystem<span class="token operator">*</span> <span class="token keyword">const</span> OnlineSub <span class="token operator">=</span> <span class="token class-name">Online</span><span class="token double-colon punctuation">::</span><span class="token function">GetSubsystem</span><span class="token punctuation">(</span><span class="token function">GetWorld</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">check</span><span class="token punctuation">(</span>OnlineSub<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	IOnlineSessionPtr Sessions <span class="token operator">=</span> OnlineSub<span class="token operator">-></span><span class="token function">GetSessionInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">check</span><span class="token punctuation">(</span>Sessions<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">const</span> FUniqueNetIdPtr UserId <span class="token operator">=</span> LocalPlayer<span class="token operator">-></span><span class="token function">GetPreferredUniqueNetId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">GetUniqueNetId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">ensure</span><span class="token punctuation">(</span>UserId<span class="token punctuation">.</span><span class="token function">IsValid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		HostSettings <span class="token operator">=</span> <span class="token function">MakeShareable</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">FCommonSession_OnlineSessionSettings</span><span class="token punctuation">(</span>Request<span class="token operator">-></span>OnlineMode <span class="token operator">==</span> ECommonSessionOnlineMode<span class="token double-colon punctuation">::</span>LAN<span class="token punctuation">,</span> bIsPresence<span class="token punctuation">,</span> MaxPlayers<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		HostSettings<span class="token operator">-></span>bUseLobbiesIfAvailable <span class="token operator">=</span> Request<span class="token operator">-></span>bUseLobbies<span class="token punctuation">;</span>
+		HostSettings<span class="token operator">-></span><span class="token function">Set</span><span class="token punctuation">(</span>SETTING_GAMEMODE<span class="token punctuation">,</span> Request<span class="token operator">-></span>ModeNameForAdvertisement<span class="token punctuation">,</span> EOnlineDataAdvertisementType<span class="token double-colon punctuation">::</span>ViaOnlineService<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		HostSettings<span class="token operator">-></span><span class="token function">Set</span><span class="token punctuation">(</span>SETTING_MAPNAME<span class="token punctuation">,</span> Request<span class="token operator">-></span><span class="token function">GetMapName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> EOnlineDataAdvertisementType<span class="token double-colon punctuation">::</span>ViaOnlineService<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//@TODO: HostSettings->Set(SETTING_MATCHING_HOPPER, FString("TeamDeathmatch"), EOnlineDataAdvertisementType::DontAdvertise);</span>
+		HostSettings<span class="token operator">-></span><span class="token function">Set</span><span class="token punctuation">(</span>SETTING_MATCHING_TIMEOUT<span class="token punctuation">,</span> <span class="token number">120.0f</span><span class="token punctuation">,</span> EOnlineDataAdvertisementType<span class="token double-colon punctuation">::</span>ViaOnlineService<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		HostSettings<span class="token operator">-></span><span class="token function">Set</span><span class="token punctuation">(</span>SETTING_SESSION_TEMPLATE_NAME<span class="token punctuation">,</span> <span class="token function">FString</span><span class="token punctuation">(</span><span class="token function">TEXT</span><span class="token punctuation">(</span><span class="token string">"GameSession"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> EOnlineDataAdvertisementType<span class="token double-colon punctuation">::</span>DontAdvertise<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		HostSettings<span class="token operator">-></span><span class="token function">Set</span><span class="token punctuation">(</span>SETTING_ONLINESUBSYSTEM_VERSION<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> EOnlineDataAdvertisementType<span class="token double-colon punctuation">::</span>ViaOnlineService<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		FSessionSettings<span class="token operator">&amp;</span> UserSettings <span class="token operator">=</span> HostSettings<span class="token operator">-></span>MemberSettings<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>UserId<span class="token punctuation">.</span><span class="token function">ToSharedRef</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">FSessionSettings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		UserSettings<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>SETTING_GAMEMODE<span class="token punctuation">,</span> <span class="token function">FOnlineSessionSetting</span><span class="token punctuation">(</span><span class="token function">FString</span><span class="token punctuation">(</span><span class="token string">"GameSession"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> EOnlineDataAdvertisementType<span class="token double-colon punctuation">::</span>ViaOnlineService<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+		Sessions<span class="token operator">-></span><span class="token function">CreateSession</span><span class="token punctuation">(</span><span class="token operator">*</span>UserId<span class="token punctuation">,</span> SessionName<span class="token punctuation">,</span> <span class="token operator">*</span>HostSettings<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">else</span>
+	<span class="token punctuation">{</span>
+		<span class="token function">OnCreateSessionComplete</span><span class="token punctuation">(</span>SessionName<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span></span></span></span></code></pre><div id="https://www.notion.so/c4a25f4cbcff4d709ffb2c389e20faa8" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">通过多态</span></span></p></div><div id="https://www.notion.so/e26ce0132b4f45aa95a33dbe9bbf3634" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">首先拿到onlinesubsystem</span></span></p></div><pre id="https://www.notion.so/696b76117e954ae5a4d01bece5a60e77" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>IOnlineSubsystem<span class="token operator">*</span> <span class="token keyword">const</span> OnlineSub <span class="token operator">=</span> <span class="token class-name">Online</span><span class="token double-colon punctuation">::</span><span class="token function">GetSubsystem</span><span class="token punctuation">(</span><span class="token function">GetWorld</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span></span></span></code></pre><div id="https://www.notion.so/315eb02d01ea4503afb063fe261b58e7" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">处理UserId</span></span></p></div><div id="https://www.notion.so/955a5fe6cae14f669ec681e91838b891" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">如果UserId.IsValid()</span></span></p></div><div id="https://www.notion.so/1404786e3dc247fcb28097dd57ea20a5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">设置hostsetting</span></span></p></div><div id="https://www.notion.so/1a0deb27c255422cba6588d723031cf6" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">创建session</span></span></p></div><pre id="https://www.notion.so/4245be69365a46c1982435c799872c36" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>Sessions<span class="token operator">-></span><span class="token function">CreateSession</span><span class="token punctuation">(</span><span class="token operator">*</span>UserId<span class="token punctuation">,</span> SessionName<span class="token punctuation">,</span> <span class="token operator">*</span>HostSettings<span class="token punctuation">)</span><span class="token punctuation">;</span></span></span></span></code></pre><div id="https://www.notion.so/ca71e9857c454254aab8e5f02ad5b40f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">IOnlineSessionPtr 下的createsession函数 存在如下子类的实现</span></span></p></div><div id="https://www.notion.so/29c515252a654c409c260e6d8f4d1fd4" class="Image Image--PageWidth"><figure><a href="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6e683a8d-a656-4900-ba51-d57963422438%2FUntitled.png?width=993&amp;table=block&amp;id=29c51525-2a65-4c40-9c26-0e6d8f4d1fd4"><img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6e683a8d-a656-4900-ba51-d57963422438%2FUntitled.png?width=993&amp;table=block&amp;id=29c51525-2a65-4c40-9c26-0e6d8f4d1fd4" style="width:100%"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/9ddfbd6885cd43458376de676a59d59c" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/01ffe21fbdac4646865b99b092bbdfab" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">以OnlineSessionEOS为例</span></span></p></div><div id="https://www.notion.so/24258061013f41228867c0202e42e0e8" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">上面的createsession调用OnlineSessionEOS子类里的</span></span></p></div><pre id="https://www.notion.so/1e1a125ce897497a8756fc7085ded0fd" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token keyword">bool</span> <span class="token class-name">FOnlineSessionEOS</span><span class="token double-colon punctuation">::</span><span class="token function">CreateSession</span><span class="token punctuation">(</span><span class="token keyword">const</span> FUniqueNetId<span class="token operator">&amp;</span> HostingPlayerId<span class="token punctuation">,</span> FName SessionName<span class="token punctuation">,</span> <span class="token keyword">const</span> FOnlineSessionSettings<span class="token operator">&amp;</span> NewSessionSettings<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">return</span> <span class="token function">CreateSession</span><span class="token punctuation">(</span>EOSSubsystem<span class="token operator">-></span>UserManager<span class="token operator">-></span><span class="token function">GetLocalUserNumFromUniqueNetId</span><span class="token punctuation">(</span>HostingPlayerId<span class="token punctuation">)</span><span class="token punctuation">,</span> SessionName<span class="token punctuation">,</span> NewSessionSettings<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></span></span></span></code></pre><div id="https://www.notion.so/913e9b2b687b45b390e26295851fda3d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/9b14be82f39e40c6b3602347e951ace1" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">实际调用的是同命不同参数的另一个函数（什么设计模式来自忘了）</span></span></p></div><div id="https://www.notion.so/f841ba0762d14314afab2c707bd09dbd" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><pre id="https://www.notion.so/42f880a8906e4d7683de44b5d06f3c5d" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span><span class="token keyword">bool</span> <span class="token class-name">FOnlineSessionEOS</span><span class="token double-colon punctuation">::</span><span class="token function">CreateSession</span><span class="token punctuation">(</span>int32 HostingPlayerNum<span class="token punctuation">,</span> FName SessionName<span class="token punctuation">,</span> <span class="token keyword">const</span> FOnlineSessionSettings<span class="token operator">&amp;</span> NewSessionSettings<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	uint32 Result <span class="token operator">=</span> ONLINE_FAIL<span class="token punctuation">;</span>
+
+	<span class="token comment">// Check for an existing session</span>
+	FNamedOnlineSession<span class="token operator">*</span> Session <span class="token operator">=</span> <span class="token function">GetNamedSession</span><span class="token punctuation">(</span>SessionName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>Session <span class="token operator">==</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		<span class="token comment">//检查是否是dedicatedServer以及该userid是否已经登录</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>bIsDedicatedServer <span class="token operator">||</span> EOSSubsystem<span class="token operator">-></span>UserManager<span class="token operator">-></span><span class="token function">GetLoginStatus</span><span class="token punctuation">(</span>HostingPlayerNum<span class="token punctuation">)</span> <span class="token operator">>=</span> ELoginStatus<span class="token double-colon punctuation">::</span>UsingLocalProfile<span class="token punctuation">)</span>
+		<span class="token punctuation">{</span>
+			<span class="token comment">// Create a new session and deep copy the game settings</span>
+			Session <span class="token operator">=</span> <span class="token function">AddNamedSession</span><span class="token punctuation">(</span>SessionName<span class="token punctuation">,</span> NewSessionSettings<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token function">check</span><span class="token punctuation">(</span>Session<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			Session<span class="token operator">-></span>SessionState <span class="token operator">=</span> EOnlineSessionState<span class="token double-colon punctuation">::</span>Creating<span class="token punctuation">;</span>
+
+			Session<span class="token operator">-></span>OwningUserId <span class="token operator">=</span> EOSSubsystem<span class="token operator">-></span>UserManager<span class="token operator">-></span><span class="token function">GetUniquePlayerId</span><span class="token punctuation">(</span>HostingPlayerNum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			Session<span class="token operator">-></span>OwningUserName <span class="token operator">=</span> EOSSubsystem<span class="token operator">-></span>UserManager<span class="token operator">-></span><span class="token function">GetPlayerNickname</span><span class="token punctuation">(</span>HostingPlayerNum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>bIsDedicatedServer <span class="token operator">||</span> </span></span><span class="SemanticString"><span class="SemanticString__Fragment SemanticString__Fragment--Commented"><span><span class="token punctuation">(</span>Session<span class="token operator">-></span>OwningUserId<span class="token punctuation">.</span><span class="token function">IsValid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> Session<span class="token operator">-></span>OwningUserId<span class="token operator">-></span><span class="token function">IsValid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span></span></span><span class="SemanticString"><span><span class="token punctuation">)</span>
+			<span class="token punctuation">{</span>
+				<span class="token comment">// RegisterPlayer will update these values for the local player</span>
+				Session<span class="token operator">-></span>NumOpenPrivateConnections <span class="token operator">=</span> NewSessionSettings<span class="token punctuation">.</span>NumPrivateConnections<span class="token punctuation">;</span>
+				Session<span class="token operator">-></span>NumOpenPublicConnections <span class="token operator">=</span> NewSessionSettings<span class="token punctuation">.</span>NumPublicConnections<span class="token punctuation">;</span>
+
+				Session<span class="token operator">-></span>HostingPlayerNum <span class="token operator">=</span> HostingPlayerNum<span class="token punctuation">;</span>
+
+				<span class="token comment">// Unique identifier of this build for compatibility</span>
+				Session<span class="token operator">-></span>SessionSettings<span class="token punctuation">.</span>BuildUniqueId <span class="token operator">=</span> <span class="token function">GetBuildUniqueId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+				<span class="token comment">// Create Internet or LAN match</span>
+				<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>NewSessionSettings<span class="token punctuation">.</span>bIsLANMatch<span class="token punctuation">)</span>
+				<span class="token punctuation">{</span>
+					<span class="token keyword">if</span> <span class="token punctuation">(</span>Session<span class="token operator">-></span>SessionSettings<span class="token punctuation">.</span>bUseLobbiesIfAvailable<span class="token punctuation">)</span>
+					<span class="token punctuation">{</span>
+						Result <span class="token operator">=</span> <span class="token function">CreateLobbySession</span><span class="token punctuation">(</span>HostingPlayerNum<span class="token punctuation">,</span> Session<span class="token punctuation">)</span><span class="token punctuation">;</span>
+					<span class="token punctuation">}</span>
+					<span class="token keyword">else</span>
+					<span class="token punctuation">{</span>
+						Result <span class="token operator">=</span> <span class="token function">CreateEOSSession</span><span class="token punctuation">(</span>HostingPlayerNum<span class="token punctuation">,</span> Session<span class="token punctuation">)</span><span class="token punctuation">;</span>
+					<span class="token punctuation">}</span>
+				<span class="token punctuation">}</span>
+				<span class="token keyword">else</span>
+				<span class="token punctuation">{</span>
+					Result <span class="token operator">=</span> <span class="token function">CreateLANSession</span><span class="token punctuation">(</span>HostingPlayerNum<span class="token punctuation">,</span> Session<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span>
+			<span class="token keyword">else</span>
+			<span class="token punctuation">{</span>
+				<span class="token function">UE_LOG_ONLINE_SESSION</span><span class="token punctuation">(</span>Warning<span class="token punctuation">,</span> <span class="token function">TEXT</span><span class="token punctuation">(</span><span class="token string">"Cannot create session '%s': invalid user (%d)."</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">*</span>SessionName<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> HostingPlayerNum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+
+			<span class="token keyword">if</span> <span class="token punctuation">(</span>Result <span class="token operator">!=</span> ONLINE_IO_PENDING<span class="token punctuation">)</span>
+			<span class="token punctuation">{</span>
+				<span class="token comment">// Set the game state as pending (not started)</span>
+				Session<span class="token operator">-></span>SessionState <span class="token operator">=</span> EOnlineSessionState<span class="token double-colon punctuation">::</span>Pending<span class="token punctuation">;</span>
+
+				<span class="token keyword">if</span> <span class="token punctuation">(</span>Result <span class="token operator">!=</span> ONLINE_SUCCESS<span class="token punctuation">)</span>
+				<span class="token punctuation">{</span>
+					<span class="token comment">// Clean up the session info so we don't get into a confused state</span>
+					<span class="token function">RemoveNamedSession</span><span class="token punctuation">(</span>SessionName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token punctuation">}</span>
+				<span class="token keyword">else</span>
+				<span class="token punctuation">{</span>
+					<span class="token function">RegisterLocalPlayers</span><span class="token punctuation">(</span>Session<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">else</span>
+		<span class="token punctuation">{</span>
+			<span class="token function">UE_LOG_ONLINE_SESSION</span><span class="token punctuation">(</span>Warning<span class="token punctuation">,</span> <span class="token function">TEXT</span><span class="token punctuation">(</span><span class="token string">"Cannot create session '%s': user not logged in (%d)."</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">*</span>SessionName<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> HostingPlayerNum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">else</span>
+	<span class="token punctuation">{</span>
+		<span class="token function">UE_LOG_ONLINE_SESSION</span><span class="token punctuation">(</span>Warning<span class="token punctuation">,</span> <span class="token function">TEXT</span><span class="token punctuation">(</span><span class="token string">"Cannot create session '%s': session already exists."</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">*</span>SessionName<span class="token punctuation">.</span><span class="token function">ToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>Result <span class="token operator">!=</span> ONLINE_IO_PENDING<span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>
+		EOSSubsystem<span class="token operator">-></span><span class="token function">ExecuteNextTick</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token keyword">this</span><span class="token punctuation">,</span> SessionName<span class="token punctuation">,</span> Result<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+			<span class="token punctuation">{</span>
+				<span class="token function">TriggerOnCreateSessionCompleteDelegates</span><span class="token punctuation">(</span>SessionName<span class="token punctuation">,</span> Result <span class="token operator">==</span> ONLINE_SUCCESS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></span></span></span></code></pre><div id="https://www.notion.so/7ef96ab0111d453ea28a260cbfa30bb5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div></article>
+  <footer class="Footer">
+  <div>&copy; ScientistPlayDisco 2022</div>
+  <div>&centerdot;</div>
+  <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+      rel="noopener noreferrer">Notablog</a>.
+  </div>
+</footer>
+</body>
+
+</html>

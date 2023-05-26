@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- Chrome, Firefox OS and Opera Status Bar Color -->
+<meta name="theme-color" content="#FFFFFF">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+<link rel="stylesheet" type="text/css" href="css/theme.css">
+<link rel="stylesheet" type="text/css" href="css/notablog.css">
+<!-- Favicon -->
+
+  <link rel="shortcut icon" href="https://swg.notion.pet/s/a5ae8a71646c4cac0006fc5b24ccb817">
+
+<style>
+  :root {
+    font-size: 20px;
+  }
+</style>
+  <title>UE5 GameFeature架构学习&nbsp;|&nbsp;ScientistPlayDisco</title>
+  <meta property="og:type" content="blog">
+  <meta property="og:title" content="UE5 GameFeature架构学习">
+  
+  
+    <meta property="og:image" content="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;🚟&lt;/text&gt;&lt;/svg&gt;">
+  
+  <style>
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+  <a href="index.html">
+    <div class="Navbar__Btn">
+      
+        <span><img class="inline-img-icon" src="https://swg.notion.pet/s/a5ae8a71646c4cac0006fc5b24ccb817"></span>&nbsp;
+      
+      <span>Home</span>
+    </div>
+  </a>
+  
+    
+  
+    
+  
+    
+  
+    
+      <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          
+            <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;😀&lt;/text&gt;&lt;/svg&gt;"></span>&nbsp;
+          
+          <span>About</span>
+        </div>
+      </a>
+    
+  
+    
+  
+    
+  
+</nav>
+  <header class="Header">
+    
+    <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    
+      <div class="Header__Icon">
+        <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;🚟&lt;/text&gt;&lt;/svg&gt;"></span>
+      </div>
+    
+    <h1 class="Header__Title">UE5 GameFeature架构学习</h1>
+    
+  </header>
+  <article id="https://www.notion.so/0eb382ed9d9d4f63a10757b6fe54911b" class="PageRoot"><div id="https://www.notion.so/8fa18127f24d44bd86ad8ae2d432275f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">GameFeatures 能将gameplay 封装成插件，在运行时也可以随意启用或者禁用他们。gamefeatures可以是任意功能,包括新机制，武器，皮肤,UI元素，甚至地图上的区域。</span></span></p></div><pre id="https://www.notion.so/34cbaa2859fc45399e05e141df3c6b21" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>graph LR
+  id1(Gamefeatures)--&gt; id2(Mechanics)
+	id1(Gamefeatures)--&gt; id3(EnemyTypes)
+	id1(Gamefeatures)--&gt; id4(Items)
+	id1(Gamefeatures)--&gt; id5(GameAreas)
+	id1(Gamefeatures)--&gt; id6(Abilities)
+	id1(Gamefeatures)--&gt; id7(......)</span></span></span></code></pre><div id="https://www.notion.so/a9763961f5da4bb1a364289bffdde51e" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div><div id="https://www.notion.so/b9b031a5d23449f79c79b521ccca099f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">GameFeatures存在一个GameFeaturesData配置文件，是在GameFeature Plugin 插件创建时自动创建在插件根目录下的文件。</span></span></p></div><div id="https://www.notion.so/54ec5a3a2f4145c385adfa5d33b9b973" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div></article>
+  <footer class="Footer">
+  <div>&copy; ScientistPlayDisco 2022</div>
+  <div>&centerdot;</div>
+  <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+      rel="noopener noreferrer">Notablog</a>.
+  </div>
+</footer>
+</body>
+
+</html>
