@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- Chrome, Firefox OS and Opera Status Bar Color -->
+<meta name="theme-color" content="#FFFFFF">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+<link rel="stylesheet" type="text/css" href="css/theme.css">
+<link rel="stylesheet" type="text/css" href="css/notablog.css">
+<!-- Favicon -->
+
+  <link rel="shortcut icon" href="https://swg.notion.pet/s/a5ae8a71646c4cac0006fc5b24ccb817">
+
+<style>
+  :root {
+    font-size: 20px;
+  }
+</style>
+  <title>Stable Diffusion&nbsp;|&nbsp;ScientistPlayDisco</title>
+  <meta property="og:type" content="blog">
+  <meta property="og:title" content="Stable Diffusion">
+  
+  
+  <style>
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+  <a href="index.html">
+    <div class="Navbar__Btn">
+      
+        <span><img class="inline-img-icon" src="https://swg.notion.pet/s/a5ae8a71646c4cac0006fc5b24ccb817"></span>&nbsp;
+      
+      <span>Home</span>
+    </div>
+  </a>
+  
+    
+  
+    
+  
+    
+  
+    
+      <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          
+            <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;😀&lt;/text&gt;&lt;/svg&gt;"></span>&nbsp;
+          
+          <span>About</span>
+        </div>
+      </a>
+    
+  
+    
+  
+    
+  
+    
+  
+</nav>
+  <header class="Header">
+    
+    <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    
+    <h1 class="Header__Title">Stable Diffusion</h1>
+    
+  </header>
+  <article id="https://www.notion.so/2704a0149a2741238d14438926cec7fd" class="PageRoot"><h1 id="https://www.notion.so/08e76a9574d54514877d77eddbe01538" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/08e76a9574d54514877d77eddbe01538"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Emebdding</span></span></h1><h2 id="https://www.notion.so/3e89c1d80b2d4fb6af612f4b7ee38292" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/3e89c1d80b2d4fb6af612f4b7ee38292"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Emebdding</span><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">Embedding</strong></span></span></h2><div><div></div><div></div></div><div id="https://www.notion.so/1988c1ed00684c75b0b3387ceb2c50e8" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">Currently, there are more and more negative embedding, while many are also very good and easy to use. However, almost all of them currently have a big problem... They change the main or initial artstyle of the used model. Best example would be my bad_prompt_version2 Negative Embedding. It helps enormously with the quality of an image, but drastically changes the artstyle of the model. That&#x27;s not the point of it. For this reason, I have now trained my new Negative Embedding negative_hand!目前，负嵌入越来越多，而许多也非常好且易于使用。但是，目前几乎所有人都有一个大问题......它们更改所用模型的主要或初始艺术风格。最好的例子是我的bad_prompt_version2负嵌入。它极大地帮助了图像的质量，但极大地改变了模型的艺术风格。这不是重点。出于这个原因，我现在已经训练了我的新负嵌入negative_hand！</span></span></p></div><h3 id="https://www.notion.so/f0d1040ef1ce4d1eb4c078e42f274342" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/f0d1040ef1ce4d1eb4c078e42f274342"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">So what is negative_hand?</span></span></h3><div id="https://www.notion.so/c23d3d99e7554624995471e8aa03d042" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">negative_hand is supposed to fix the said issue. That means it should improve the quality of the image, but without changing the initial artstyle of the model.</span></span></p></div><div id="https://www.notion.so/5344b0015ef84102a319adfcd45df565" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">Pro:</span></span></p></div><ul class="BulletedListWrapper"><li id="https://www.notion.so/ed8185b2a8df45c1825d1bf35697507a" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">The artstyle of the model can be used without any problems and without possible artstyle changes.</span></span></li><li id="https://www.notion.so/9bd0c110754246839e4570f87ce70f84" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">The quality of the image and incorrect anatomy like hands are improved.</span></span></li></ul><div id="https://www.notion.so/bc001bb5196a4197a7fa0ee292ec74d8" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">Con:</span></span></p></div><ul class="BulletedListWrapper"><li id="https://www.notion.so/8ac7784212504486911729d504c06a50" class="BulletedList"><span class="SemanticStringArray"><span class="SemanticString">Since this embedding cannot drastically change the artstyle and composition of the image, not one hundred percent of any faulty anatomy can be improved.</span></span></li></ul><h3 id="https://www.notion.so/3ded25d2d3fa4905b1e6714b455340d3" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/3ded25d2d3fa4905b1e6714b455340d3"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Usage</span></span></h3><div id="https://www.notion.so/c00d4774f1054376aaa6115f9d8d763d" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">To use this embedding you have to download the file aswell as drop it into the &quot;\stable-diffusion-webui\embeddings&quot; folder.</span><span class="SemanticString">要使用此嵌入，您必须下载文件并将其放入“\stable-diffusion-webui\embeddings”文件夹中。</span></span></p></div><div id="https://www.notion.so/2456ae08c49e478ab07e6d431ffa8c93" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">Please put the embedding in the negative prompt to get the right results!</strong></span></span></p></div><div id="https://www.notion.so/1c44f9846be441b5b6f30d9e8e7d40b9" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">For special negative tags such as &quot;malformed sword&quot;, you still need to add them yourself. The negative embedding is trained on a basic skeleton for the negative prompt, which should provide a high-resolution image as a result.对于“malformed sword”等特殊负面标签，您仍然需要自己添加它们。负嵌入是在负提示的基本骨架上训练的，因此应该提供高分辨率图像。</span></span></p></div><div id="https://www.notion.so/1a981ae7708a4a9295c33e36a0f77454" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div></article>
+  <footer class="Footer">
+  <div>&copy; ScientistPlayDisco 2022</div>
+  <div>&centerdot;</div>
+  <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+      rel="noopener noreferrer">Notablog</a>.
+  </div>
+</footer>
+</body>
+
+</html>
